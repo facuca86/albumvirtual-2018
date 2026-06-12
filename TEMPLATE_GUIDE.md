@@ -263,6 +263,24 @@ const PROYECTOS = [
     url: 'https://facuca86.github.io/albumvirtual-2018/',
     style: 'russia',
   },
+  {
+    id: 'paniniBrazil2014',
+    label: 'Mundial 2014 · Brasil',
+    url: 'https://facuca86.github.io/albumvirtual-2014/',
+    style: 'brazil2014',
+  },
+  {
+    id: 'paniniSouthAfrica2010',
+    label: 'Mundial 2010 · Sudáfrica',
+    url: 'https://facuca86.github.io/albumvirtual-2010/',
+    style: 'southafrica2010',
+  },
+  {
+    id: 'paniniGermany2006',
+    label: 'Mundial 2006 · Alemania',
+    url: 'https://facuca86.github.io/albumvirtual-2006/',
+    style: 'germany2006',
+  },
 ];
 ```
 
@@ -272,17 +290,21 @@ const PROYECTOS = [
   actual **no se muestra** en la lista (no tendría sentido navegar al álbum que ya estás viendo).
 - Los botones navegan en la misma pestaña: `onClick={() => { window.location.href = proyecto.url; }}`
 
-Cada estilo tiene su tratamiento visual definido en el JSX:
+Cada estilo tiene su tratamiento visual definido en la función `getProyectoStyle(style)` del JSX,
+que devuelve un objeto de estilos inline para cada botón:
 
 | `style` | Estilos aplicados |
 |---|---|
-| `multicolor` | `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto blanco |
-| `qatar` | `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto blanco |
-| `cwc` | `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto dorado (`text-yellow-400`) |
-| `russia` | `backgroundColor: '#0E4CAC'`, texto blanco, sin borde especial |
+| `multicolor` | `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto `#ffffff` |
+| `qatar` | `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto `#ffffff` |
+| `cwc` | `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto `#FFD700` |
+| `russia` | `backgroundColor: '#0E4CAC'`, `border: '2px solid #D52B1E'`, texto `#ffffff` |
+| `brazil2014` | `backgroundColor: '#5FBFD8'`, `border: '2px solid #9BC43A'`, texto `#2D7B2F` |
+| `southafrica2010` | `backgroundColor: '#D6491F'`, `border: '2px solid #B92714'`, texto `#F8E4B3` |
+| `germany2006` | `backgroundColor: '#0A839C'`, `border: '2px solid #066F88'`, texto `#ffffff` |
 
 Al agregar un nuevo álbum, definir un nuevo valor de `style` con su tratamiento visual
-representativo del torneo y agregarlo al bloque de estilos del componente.
+representativo del torneo y agregar el `case` correspondiente en la función `getProyectoStyle`.
 
 ### Pasos para agregar un nuevo álbum
 
@@ -308,12 +330,15 @@ En la vista `otros-proyectos` del archivo `_app.jsx` de cada repositorio existen
 }
 ```
 
-Definir también el estilo visual del nuevo álbum en el bloque de estilos del componente. Cada álbum tiene su propio estilo visual representativo:
+Definir también el estilo visual del nuevo álbum agregando un `case` en la función `getProyectoStyle(style)` del componente. Cada álbum tiene su propio estilo visual representativo:
 
-* Mundial 2026: `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto blanco
-* Qatar 2022: `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto blanco
-* CWC 2025: `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto dorado (`text-yellow-400`)
-* Rusia 2018: `backgroundColor: '#0E4CAC'`, texto blanco — sin borde especial
+* Mundial 2026 (`multicolor`): `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto `#ffffff`
+* Qatar 2022 (`qatar`): `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto `#ffffff`
+* CWC 2025 (`cwc`): `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto `#FFD700`
+* Rusia 2018 (`russia`): `backgroundColor: '#0E4CAC'`, `border: '2px solid #D52B1E'`, texto `#ffffff`
+* Brasil 2014 (`brazil2014`): `backgroundColor: '#5FBFD8'`, `border: '2px solid #9BC43A'`, texto `#2D7B2F`
+* Sudáfrica 2010 (`southafrica2010`): `backgroundColor: '#D6491F'`, `border: '2px solid #B92714'`, texto `#F8E4B3`
+* Alemania 2006 (`germany2006`): `backgroundColor: '#0A839C'`, `border: '2px solid #066F88'`, texto `#ffffff`
 
 Los botones navegan en la misma pestaña: `onClick={() => { window.location.href = proyecto.url; }}`. El álbum actual se excluye automáticamente comparando `proyecto.id` con `albumConfig.id`. Aplicar este cambio en todos los repositorios existentes y crear un pull request en cada uno con título `feat: agregar [nombre álbum] a otros proyectos`.
 
