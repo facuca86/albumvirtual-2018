@@ -537,7 +537,7 @@ export default function PaniniAlbumRUS2018() {
                   ? { backgroundColor: '#6B0F1A', border: '2px solid #B8860B' }
                   : proyecto.style === 'cwc'
                   ? { backgroundColor: '#000000', border: '2px solid #B8860B' }
-                  : { backgroundColor: '#0E4CAC', border: '2px solid #D03030' };
+                  : { backgroundColor: '#0E4CAC' };
                 const textClass = 'text-white';
                 return (
                   <button
@@ -605,23 +605,23 @@ export default function PaniniAlbumRUS2018() {
             </div>
 
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              <button onClick={() => { setCurrentTeamIndex(0); setCurrentView('album'); }}
-                className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
-                style={{ backgroundColor: '#ffd700', color: '#083994' }}>
-                PANINI
-              </button>
-
               <button onClick={() => { setCurrentTeamIndex(teams.indexOf('INTRO')); setCurrentView('album'); }}
                 className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
                 style={{ backgroundColor: '#083994', color: '#ffffff' }}>
                 INTRO
               </button>
 
+              <button onClick={() => { setCurrentTeamIndex(teams.indexOf('ESTADIOS')); setCurrentView('album'); }}
+                className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
+                style={{ backgroundColor: '#D03030', color: '#ffffff' }}>
+                ESTADIOS
+              </button>
+
               {Object.entries(groups).map(([letter, group]) => (
                 <button key={letter}
                   onClick={() => { setCurrentTeamIndex(teams.indexOf(group.teams[0])); setCurrentView('album'); }}
                   className="rounded-2xl py-2 px-3 font-black active:scale-95 transition-transform text-left flex gap-2 items-center"
-                  style={{ backgroundColor: group.color, color: '#ffffff' }}>
+                  style={{ backgroundColor: '#D03030', color: '#ffffff' }}>
                   <span className="text-2xl sm:text-3xl font-black leading-none shrink-0">{letter}</span>
                   <div className="flex flex-col gap-0.5 text-sm leading-tight min-w-0">
                     {group.teams.map(team => (
@@ -792,11 +792,11 @@ function AlbumPage({ currentTeam, currentTeamInfo, stickers, stickerCount, curre
 
       {/* Inner panel */}
       <div className={`overflow-hidden rounded-[2rem] border-4 transition-colors duration-300 ${darkMode ? 'border-[#0a3070] bg-[#0a2d6e]' : 'border-slate-200 bg-white'} grid lg:grid-cols-2`}>
-        {currentTeam === 'PANINI_SECTION' ? (
-          <PaniniSectionPanel stickers={stickers} currentTeam={currentTeam} currentTeamInfo={currentTeamInfo}
-            darkMode={darkMode} toggleSticker={toggleSticker} justPastedCode={justPastedCode} highlightCode={highlightCode} />
-        ) : currentTeam === 'INTRO' ? (
+        {currentTeam === 'INTRO' ? (
           <IntroPanel stickers={stickers} currentTeam={currentTeam}
+            darkMode={darkMode} toggleSticker={toggleSticker} justPastedCode={justPastedCode} highlightCode={highlightCode} />
+        ) : currentTeam === 'ESTADIOS' ? (
+          <EstadiosPanel stickers={stickers} currentTeam={currentTeam}
             darkMode={darkMode} toggleSticker={toggleSticker} justPastedCode={justPastedCode} highlightCode={highlightCode} />
         ) : currentTeam === 'LEGENDS' ? (
           <LegendsPanel stickers={stickers} currentTeam={currentTeam}
@@ -807,24 +807,6 @@ function AlbumPage({ currentTeam, currentTeamInfo, stickers, stickerCount, curre
             teamGroups={teamGroups} groups={groups} teamData={teamData} />
         )}
       </div>
-    </div>
-  );
-}
-
-// ── PANINI Section Panel ──────────────────────────────────────────────────────
-function PaniniSectionPanel({ stickers, currentTeam, currentTeamInfo, darkMode, toggleSticker, justPastedCode, highlightCode }) {
-  const bgClass = getInnerPanelClass(currentTeam, darkMode);
-  const s = stickers[0];
-  return (
-    <div className={`col-span-2 p-6 sm:p-12 flex flex-col items-center justify-center min-h-[18rem] ${bgClass}`}>
-      <div className="text-5xl sm:text-7xl font-black italic text-yellow-400 mb-6 drop-shadow-lg">PANINI</div>
-      <div className="w-36 sm:w-48">
-        {s && (
-          <Sticker sticker={s} currentTeam={currentTeam} onToggle={toggleSticker}
-            darkMode={darkMode} justPasted={justPastedCode === s.code} highlighted={highlightCode === s.code} />
-        )}
-      </div>
-      <div className="mt-6 text-white/60 text-xs uppercase tracking-[0.3em]">Figurita especial · {albumConfig.title}</div>
     </div>
   );
 }
@@ -856,6 +838,47 @@ function IntroPanel({ stickers, currentTeam, darkMode, toggleSticker, justPasted
       {/* Desktop izquierda */}
       <div className={`hidden lg:block p-8 border-r transition-colors duration-300 ${darkMode ? 'border-[#0a3070]' : 'border-slate-300'} ${bgClass}`}>
         <div className="text-4xl font-black uppercase text-white mb-6">INTRO</div>
+        <div className="grid grid-cols-4 gap-4">
+          {stickers.slice(0, half).map(renderSticker)}
+        </div>
+      </div>
+      {/* Desktop derecha */}
+      <div className={`hidden lg:block p-8 ${bgClass}`}>
+        <div className="grid grid-cols-4 gap-4 mt-[4.5rem]">
+          {stickers.slice(half).map(renderSticker)}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Estadios Panel ────────────────────────────────────────────────────────────
+function EstadiosPanel({ stickers, currentTeam, darkMode, toggleSticker, justPastedCode, highlightCode }) {
+  const bgClass = getInnerPanelClass(currentTeam, darkMode);
+  const half = Math.ceil(stickers.length / 2);
+
+  const renderSticker = (s) => s.horizontal ? (
+    <div key={s.code} className="col-span-2">
+      <Sticker sticker={s} currentTeam={currentTeam} onToggle={toggleSticker}
+        darkMode={darkMode} justPasted={justPastedCode === s.code} highlighted={highlightCode === s.code} />
+    </div>
+  ) : (
+    <Sticker key={s.code} sticker={s} currentTeam={currentTeam} onToggle={toggleSticker}
+      darkMode={darkMode} justPasted={justPastedCode === s.code} highlighted={highlightCode === s.code} />
+  );
+
+  return (
+    <>
+      {/* Mobile */}
+      <div className={`lg:hidden col-span-2 p-3 ${bgClass}`}>
+        <div className="text-2xl font-black uppercase text-white mb-3">ESTADIOS</div>
+        <div className="grid grid-cols-4 gap-2">
+          {stickers.map(renderSticker)}
+        </div>
+      </div>
+      {/* Desktop izquierda */}
+      <div className={`hidden lg:block p-8 border-r transition-colors duration-300 ${darkMode ? 'border-[#0a3070]' : 'border-slate-300'} ${bgClass}`}>
+        <div className="text-4xl font-black uppercase text-white mb-6">ESTADIOS</div>
         <div className="grid grid-cols-4 gap-4">
           {stickers.slice(0, half).map(renderSticker)}
         </div>

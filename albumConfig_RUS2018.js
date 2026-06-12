@@ -32,15 +32,10 @@ export const albumConfig = {
 
   // ── Secciones especiales ─────────────────────────────────────────────────────
   specialSections: {
-    PANINI_SECTION: {
-      count: 1,
-      stickers: [
-        { code: 'PANINI', label: 'PANINI', repetidasLabel: 'PANINI', type: 'brillante', horizontal: false },
-      ],
-    },
     INTRO: {
-      count: 19,
+      count: 8,
       stickers: [
+        { code: 'PANINI', label: 'PANINI',            repetidasLabel: 'PANINI', type: 'brillante', horizontal: false },
         { code: 'INTRO1',  label: 'Logo FIFA',                                 repetidasLabel: 'INTRO1',  type: 'brillante',   horizontal: false },
         { code: 'INTRO2',  label: 'Trofeo Copa del Mundo',                     repetidasLabel: 'INTRO2',  type: 'brillante',   horizontal: false },
         { code: 'INTRO3',  label: 'Poster Mascota',                            repetidasLabel: 'INTRO3',  type: 'brillante',   horizontal: true  },
@@ -48,6 +43,11 @@ export const albumConfig = {
         { code: 'INTRO5',  label: 'Logo',                                      repetidasLabel: 'INTRO5',  type: 'brillante',   horizontal: false },
         { code: 'INTRO6',  label: 'Logo',                                      repetidasLabel: 'INTRO6',  type: 'brillante',   horizontal: false },
         { code: 'INTRO7',  label: 'Balón Oficial',                             repetidasLabel: 'INTRO7',  type: 'brillante',   horizontal: false },
+      ],
+    },
+    ESTADIOS: {
+      count: 12,
+      stickers: [
         { code: 'INTRO8',  label: 'Ekaterinburgo - Ekaterinburgo Arena',       repetidasLabel: 'INTRO8',  type: 'estadio', horizontal: true  },
         { code: 'INTRO9',  label: 'Kaliningrado - Kaliningrad Stadium',        repetidasLabel: 'INTRO9',  type: 'estadio', horizontal: true  },
         { code: 'INTRO10', label: 'Kazan - Kazan Arena',                       repetidasLabel: 'INTRO10', type: 'estadio', horizontal: true  },
@@ -81,24 +81,24 @@ export const albumConfig = {
 
   // ── Temas visuales de secciones especiales ────────────────────────────────────
   sectionThemes: {
-    PANINI_SECTION: { themeKey: 'PANINI_SECTION', solidBg: null, innerPanel: 'bg-[#051f4a]' },
-    INTRO:          { themeKey: 'INTRO_RUS2018',  solidBg: null, innerPanel: 'bg-[#051f4a]' },
-    LEGENDS:        { themeKey: 'LEGENDS_RUS2018',solidBg: null, innerPanel: 'bg-[#0f172a]' },
+    INTRO:    { themeKey: 'INTRO_RUS2018',   solidBg: null, innerPanel: 'bg-[#051f4a]' },
+    ESTADIOS: { themeKey: 'INTRO_RUS2018',   solidBg: null, innerPanel: 'bg-[#051f4a]' },
+    LEGENDS:  { themeKey: 'LEGENDS_RUS2018', solidBg: null, innerPanel: 'bg-[#0f172a]' },
   },
 
   // ── Etiquetas en el buscador para secciones especiales ───────────────────────
   searchConfig: {
-    PANINI_SECTION: { teamName: 'PANINI',          teamFlag: '⚽' },
-    INTRO:          { teamName: 'Intro Rusia 2018', teamFlag: '🇷🇺' },
-    LEGENDS:        { teamName: 'Legends',          teamFlag: '🏆' },
+    INTRO:    { teamName: 'Intro Rusia 2018',    teamFlag: '🇷🇺' },
+    ESTADIOS: { teamName: 'Estadios Rusia 2018', teamFlag: '🏟️' },
+    LEGENDS:  { teamName: 'Legends',             teamFlag: '🏆' },
   },
 
   // ── Configuración de estadísticas ────────────────────────────────────────────
   statsConfig: [
-    { key: 'PANINI',  emoji: '⚽', name: 'PANINI',  fixedCodes: ['PANINI'] },
-    { key: 'INTRO',   emoji: '🇷🇺', name: 'INTRO',   fixedCodes: ['INTRO1','INTRO2','INTRO3','INTRO4','INTRO5','INTRO6','INTRO7','INTRO8','INTRO9','INTRO10','INTRO11','INTRO12','INTRO13','INTRO14','INTRO15','INTRO16','INTRO17','INTRO18','INTRO19'] },
+    { key: 'INTRO',    emoji: '🇷🇺', name: 'INTRO',    fixedCodes: ['PANINI','INTRO1','INTRO2','INTRO3','INTRO4','INTRO5','INTRO6','INTRO7'] },
+    { key: 'ESTADIOS', emoji: '🏟️', name: 'ESTADIOS', fixedCodes: ['INTRO8','INTRO9','INTRO10','INTRO11','INTRO12','INTRO13','INTRO14','INTRO15','INTRO16','INTRO17','INTRO18','INTRO19'] },
     { key: '__TEAMS__' },
-    { key: 'LEGENDS', emoji: '🏆', name: 'LEGENDS', fixedCodes: ['LEG1','LEG2','LEG3','LEG4','LEG5','LEG6','LEG7','LEG8','LEG9','LEG10'] },
+    { key: 'LEGENDS',  emoji: '🏆', name: 'LEGENDS',  fixedCodes: ['LEG1','LEG2','LEG3','LEG4','LEG5','LEG6','LEG7','LEG8','LEG9','LEG10'] },
   ],
 
   // ── Equipos competidores (orden del álbum) ────────────────────────────────────
@@ -115,9 +115,9 @@ export const albumConfig = {
 
   // ── Datos de todos los equipos ───────────────────────────────────────────────
   teamData: {
-    PANINI_SECTION: { name: 'PANINI',   federation: 'Figurita Especial',         flag: '⚽' },
-    INTRO:          { name: 'Intro',    federation: 'Opening Section',           flag: '🇷🇺' },
-    LEGENDS:        { name: 'Legends',  federation: 'World Cup Legends',         flag: '🏆' },
+    INTRO:    { name: 'Intro',    federation: 'Opening Section',    flag: '🇷🇺' },
+    ESTADIOS: { name: 'Estadios', federation: 'Venues Russia 2018', flag: '🏟️' },
+    LEGENDS:  { name: 'Legends',  federation: 'World Cup Legends',  flag: '🏆' },
 
     RUS: { name: 'Rusia',              federation: 'Russian Football Union',                          flag: '🇷🇺' },
     KSA: { name: 'Arabia Saudita',     federation: 'Saudi Arabian Football Federation',               flag: '🇸🇦' },
@@ -205,8 +205,8 @@ export const albumConfig = {
 
 // Orden completo de navegación del álbum
 albumConfig.teams = [
-  'PANINI_SECTION',
   'INTRO',
+  'ESTADIOS',
   ...albumConfig.competingTeams,
   'LEGENDS',
 ];
