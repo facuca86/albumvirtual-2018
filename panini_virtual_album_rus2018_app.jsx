@@ -596,7 +596,7 @@ export default function PaniniAlbumRUS2018() {
         {currentView === 'groups' && (
           <div
             className="rounded-3xl p-4 sm:p-8 pb-24 sm:pb-8 shadow-xl"
-            style={{ background: 'radial-gradient(ellipse at center, #0E4CAC, #D03030, #083994, #B03020, #0E4CAC, #D03030, #083994, #A39464)' }}
+            style={{ backgroundColor: '#D03030' }}
           >
             <div className="hidden lg:flex justify-between items-center mb-6">
               <button onClick={() => setCurrentView('home')} className="rounded-full px-6 py-3 shadow font-bold italic bg-white text-black">HOME</button>
