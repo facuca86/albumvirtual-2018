@@ -325,10 +325,9 @@ export default function PaniniAlbumRUS2018() {
 
   const selectionTeams = albumConfig.competingTeams;
 
-  // brillantes: solo escudos (posición 1) de los 32 equipos
+  // brillantes: PANINI (1) + INTRO1-7 (7) + 32 escudos + LEG1-10 (10) = 50 total
   const shieldCodes    = selectionTeams.map(t => `${t}1`);
-  const fwcCodes       = Array.from({length: albumConfig.brillanteStickerCount}, (_, i) => `${albumConfig.brillanteStickerPrefix}${i + 1}`);
-  const brilliantCodes = [...shieldCodes, ...fwcCodes];
+  const brilliantCodes = [...(albumConfig.brilliantSpecialCodes || []), ...shieldCodes];
   const brilliantCompletedCount = brilliantCodes.filter(c => isCompletedSticker(completed[c])).length;
 
   const selectionStats = useMemo(() => {
@@ -1079,7 +1078,7 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
         </div>
         <div className={`italic uppercase text-[9px] sm:text-[11px] mt-0.5 leading-tight font-black ${
           sticker.repeated ? repeatedLabelClass :
-          currentTeam === 'LEGENDS' ? 'text-yellow-200' : ''
+          isBrillante ? 'text-yellow-900' : ''
         }`}>
           {sticker.label}
         </div>

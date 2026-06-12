@@ -20,28 +20,34 @@ export const albumConfig = {
   // ── Navegación ───────────────────────────────────────────────────────────────
   lastSectionCode: 'LEGENDS',
 
-  // ── Brillantes (solo escudos de equipos — tipo 'brillante' en la figurita) ──
+  // ── Brillantes: 1 PANINI + 7 INTRO + 32 escudos + 10 LEGENDS = 50 total ────
   brillanteStickerPrefix: 'BRILLANTE_NONE_',
   brillanteStickerCount: 0,
+  // Brillantes de secciones especiales (excluye los 32 escudos que se generan dinámicamente)
+  brilliantSpecialCodes: [
+    'PANINI',
+    'INTRO1','INTRO2','INTRO3','INTRO4','INTRO5','INTRO6','INTRO7',
+    'LEG1','LEG2','LEG3','LEG4','LEG5','LEG6','LEG7','LEG8','LEG9','LEG10',
+  ],
 
   // ── Secciones especiales ─────────────────────────────────────────────────────
   specialSections: {
     PANINI_SECTION: {
       count: 1,
       stickers: [
-        { code: 'PANINI', label: 'PANINI', repetidasLabel: 'PANINI', type: 'panini', horizontal: false },
+        { code: 'PANINI', label: 'PANINI', repetidasLabel: 'PANINI', type: 'brillante', horizontal: false },
       ],
     },
     INTRO: {
       count: 19,
       stickers: [
-        { code: 'INTRO1',  label: 'Logo FIFA',                                 repetidasLabel: 'INTRO1',  type: 'intro',   horizontal: false },
-        { code: 'INTRO2',  label: 'Trofeo Copa del Mundo',                     repetidasLabel: 'INTRO2',  type: 'intro',   horizontal: false },
-        { code: 'INTRO3',  label: 'Poster Mascota',                            repetidasLabel: 'INTRO3',  type: 'intro',   horizontal: true  },
-        { code: 'INTRO4',  label: 'Poster Mascota',                            repetidasLabel: 'INTRO4',  type: 'intro',   horizontal: true  },
-        { code: 'INTRO5',  label: 'Logo',                                      repetidasLabel: 'INTRO5',  type: 'intro',   horizontal: false },
-        { code: 'INTRO6',  label: 'Logo',                                      repetidasLabel: 'INTRO6',  type: 'intro',   horizontal: false },
-        { code: 'INTRO7',  label: 'Balón Oficial',                             repetidasLabel: 'INTRO7',  type: 'intro',   horizontal: false },
+        { code: 'INTRO1',  label: 'Logo FIFA',                                 repetidasLabel: 'INTRO1',  type: 'brillante',   horizontal: false },
+        { code: 'INTRO2',  label: 'Trofeo Copa del Mundo',                     repetidasLabel: 'INTRO2',  type: 'brillante',   horizontal: false },
+        { code: 'INTRO3',  label: 'Poster Mascota',                            repetidasLabel: 'INTRO3',  type: 'brillante',   horizontal: true  },
+        { code: 'INTRO4',  label: 'Poster Mascota',                            repetidasLabel: 'INTRO4',  type: 'brillante',   horizontal: true  },
+        { code: 'INTRO5',  label: 'Logo',                                      repetidasLabel: 'INTRO5',  type: 'brillante',   horizontal: false },
+        { code: 'INTRO6',  label: 'Logo',                                      repetidasLabel: 'INTRO6',  type: 'brillante',   horizontal: false },
+        { code: 'INTRO7',  label: 'Balón Oficial',                             repetidasLabel: 'INTRO7',  type: 'brillante',   horizontal: false },
         { code: 'INTRO8',  label: 'Ekaterinburgo - Ekaterinburgo Arena',       repetidasLabel: 'INTRO8',  type: 'estadio', horizontal: true  },
         { code: 'INTRO9',  label: 'Kaliningrado - Kaliningrad Stadium',        repetidasLabel: 'INTRO9',  type: 'estadio', horizontal: true  },
         { code: 'INTRO10', label: 'Kazan - Kazan Arena',                       repetidasLabel: 'INTRO10', type: 'estadio', horizontal: true  },
@@ -59,16 +65,16 @@ export const albumConfig = {
     LEGENDS: {
       count: 10,
       stickers: [
-        { code: 'LEG1',  label: 'Brasil 1958',                      repetidasLabel: 'LEG1',  type: 'legend', horizontal: false },
-        { code: 'LEG2',  label: 'Alemania 2014',                    repetidasLabel: 'LEG2',  type: 'legend', horizontal: false },
-        { code: 'LEG3',  label: 'Italia 1982',                      repetidasLabel: 'LEG3',  type: 'legend', horizontal: false },
-        { code: 'LEG4',  label: 'Uruguay 1930',                     repetidasLabel: 'LEG4',  type: 'legend', horizontal: false },
-        { code: 'LEG5',  label: 'Argentina 1986',                   repetidasLabel: 'LEG5',  type: 'legend', horizontal: false },
-        { code: 'LEG6',  label: 'Inglaterra 1966',                  repetidasLabel: 'LEG6',  type: 'legend', horizontal: false },
-        { code: 'LEG7',  label: 'Francia 1998',                     repetidasLabel: 'LEG7',  type: 'legend', horizontal: false },
-        { code: 'LEG8',  label: 'España 2010',                      repetidasLabel: 'LEG8',  type: 'legend', horizontal: false },
-        { code: 'LEG9',  label: 'Pelé (máximo ganador)',             repetidasLabel: 'LEG9',  type: 'legend', horizontal: false },
-        { code: 'LEG10', label: 'Miroslav Klose (máximo goleador)', repetidasLabel: 'LEG10', type: 'legend', horizontal: false },
+        { code: 'LEG1',  label: 'Brasil 1958',                      repetidasLabel: 'LEG1',  type: 'brillante', horizontal: false },
+        { code: 'LEG2',  label: 'Alemania 2014',                    repetidasLabel: 'LEG2',  type: 'brillante', horizontal: false },
+        { code: 'LEG3',  label: 'Italia 1982',                      repetidasLabel: 'LEG3',  type: 'brillante', horizontal: false },
+        { code: 'LEG4',  label: 'Uruguay 1930',                     repetidasLabel: 'LEG4',  type: 'brillante', horizontal: false },
+        { code: 'LEG5',  label: 'Argentina 1986',                   repetidasLabel: 'LEG5',  type: 'brillante', horizontal: false },
+        { code: 'LEG6',  label: 'Inglaterra 1966',                  repetidasLabel: 'LEG6',  type: 'brillante', horizontal: false },
+        { code: 'LEG7',  label: 'Francia 1998',                     repetidasLabel: 'LEG7',  type: 'brillante', horizontal: false },
+        { code: 'LEG8',  label: 'España 2010',                      repetidasLabel: 'LEG8',  type: 'brillante', horizontal: false },
+        { code: 'LEG9',  label: 'Pelé (máximo ganador)',             repetidasLabel: 'LEG9',  type: 'brillante', horizontal: false },
+        { code: 'LEG10', label: 'Miroslav Klose (máximo goleador)', repetidasLabel: 'LEG10', type: 'brillante', horizontal: false },
       ],
     },
   },
