@@ -617,11 +617,13 @@ export default function PaniniAlbumRUS2018() {
                 ESTADIOS
               </button>
 
-              {Object.entries(groups).map(([letter, group]) => (
+              {Object.entries(groups).map(([letter, group]) => {
+                const groupColors = { A: '#4E82C3', B: '#D84F66', C: '#1FA9E5', D: '#B7B48A', E: '#7B5A9C', F: '#12B39A', G: '#5CA9B7', H: '#F49A7A' };
+                return (
                 <button key={letter}
                   onClick={() => { setCurrentTeamIndex(teams.indexOf(group.teams[0])); setCurrentView('album'); }}
                   className="rounded-2xl py-2 px-3 font-black active:scale-95 transition-transform text-left flex gap-2 items-center"
-                  style={{ backgroundColor: '#D03030', color: '#ffffff' }}>
+                  style={{ backgroundColor: groupColors[letter] || '#D03030', color: '#ffffff' }}>
                   <span className="text-2xl sm:text-3xl font-black leading-none shrink-0">{letter}</span>
                   <div className="flex flex-col gap-0.5 text-sm leading-tight min-w-0">
                     {group.teams.map(team => (
@@ -629,7 +631,7 @@ export default function PaniniAlbumRUS2018() {
                     ))}
                   </div>
                 </button>
-              ))}
+              )})}
 
               <button onClick={() => { setCurrentTeamIndex(teams.indexOf('LEGENDS')); setCurrentView('album'); }}
                 className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
