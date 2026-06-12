@@ -2,27 +2,31 @@
 
 Este documento explica la arquitectura del proyecto y los pasos para crear un álbum virtual de un nuevo torneo a partir de este repositorio.
 
-**Este repositorio es el proyecto madre** — exclusivamente el álbum del Mundial Qatar 2022.
-Al clonar para un nuevo torneo, trabajar siempre sobre el repositorio nuevo. Nunca modificar este.
+**Este repositorio contiene el álbum del Mundial Rusia 2018** (`albumvirtual-2018`).
+Fue creado a partir del proyecto madre (Qatar 2022 — `albumvirtual-2022`).
+Al clonar para un nuevo torneo, crear un nuevo repositorio y trabajar sobre él. Nunca modificar repositorios existentes.
 
 ---
 
 ## Sección 1: Estructura del proyecto
 
-El proyecto está compuesto por 6 archivos en la raíz:
+El proyecto está compuesto por 6 archivos activos en la raíz (más los residuos del template de origen):
 
 | Archivo | Rol |
 |---|---|
-| `albumConfig_2022.js` | Configuración central: id, título, equipos, secciones, grupos, estadísticas, paleta |
-| `playerNames_2022.js` | Nombres de jugadores por equipo (clave de equipo → objeto número → nombre) |
-| `teamThemes_2022.js` | Gradientes visuales por equipo usando clases Tailwind |
-| `firebase_2022.js` | Configuración de Firebase y funciones de lectura/escritura del progreso |
-| `panini_virtual_album_2022_app.jsx` | Componente React principal — toda la UI y lógica del álbum |
+| `albumConfig_RUS2018.js` | Configuración central: id, título, equipos, secciones, grupos, paleta |
+| `playerNames_RUS2018.js` | Nombres de jugadores por equipo (clave de equipo → objeto número → nombre) |
+| `teamThemes_RUS2018.js` | Gradientes visuales por equipo usando clases Tailwind |
+| `firebase_RUS2018.js` | Configuración de Firebase y funciones de lectura/escritura del progreso |
+| `panini_virtual_album_rus2018_app.jsx` | Componente React principal — toda la UI y lógica del álbum |
 | `index.html` | Punto de entrada HTML — carga los scripts y define el título de la página |
 
-Los archivos con sufijo `_2022` son la implementación concreta del Mundial Qatar 2022.
+Los archivos con sufijo `_RUS2018` son la implementación concreta del Mundial Rusia 2018.
 Al clonar el repositorio para un nuevo torneo, crear equivalentes con el sufijo del nuevo torneo
 (ej: `albumConfig_EURO2028.js`, `playerNames_EURO2028.js`, etc.).
+
+Los archivos con sufijo `_2022` presentes en este repositorio son residuos del template de origen
+(Qatar 2022) y no se utilizan en producción.
 
 ---
 
@@ -192,6 +196,7 @@ export const albumPalette = {
 | Qatar 2022 | `#7B1010` vinotinto | `#FFD700` dorado brillante | Identidad oficial Qatar |
 | CWC 2025 | `#000000` negro | `#B8860B` dorado oscuro | Estética premium oscura |
 | Mundial 2026 | multicolor | gradiente | Identidad multicolor USA-CAN-MEX |
+| Rusia 2018 | `#1a1a2e` azul oscuro | `#C8102E` rojo Rusia | Bandera rusa + fondo oscuro |
 
 ---
 
@@ -252,6 +257,12 @@ const PROYECTOS = [
     url: 'https://facuca86.github.io/albumvirtual-cwc25/',
     style: 'cwc',
   },
+  {
+    id: 'paniniRussia2018',
+    label: 'Mundial 2018 · Rusia',
+    url: 'https://facuca86.github.io/albumvirtual-2018/',
+    style: 'russia',
+  },
 ];
 ```
 
@@ -268,6 +279,7 @@ Cada estilo tiene su tratamiento visual definido en el JSX:
 | `multicolor` | `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto blanco |
 | `qatar` | `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto blanco |
 | `cwc` | `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto dorado (`text-yellow-400`) |
+| `russia` | `backgroundColor: '#1a1a2e'`, `border: '2px solid #C8102E'`, texto blanco |
 
 Al agregar un nuevo álbum, definir un nuevo valor de `style` con su tratamiento visual
 representativo del torneo y agregarlo al bloque de estilos del componente.
