@@ -279,7 +279,7 @@ Cada estilo tiene su tratamiento visual definido en el JSX:
 | `multicolor` | `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto blanco |
 | `qatar` | `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto blanco |
 | `cwc` | `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto dorado (`text-yellow-400`) |
-| `russia` | `backgroundColor: '#1a1a2e'`, `border: '2px solid #C8102E'`, texto blanco |
+| `russia` | `backgroundColor: '#0E4CAC'`, texto blanco, sin borde especial |
 
 Al agregar un nuevo álbum, definir un nuevo valor de `style` con su tratamiento visual
 representativo del torneo y agregarlo al bloque de estilos del componente.
@@ -290,3 +290,31 @@ representativo del torneo y agregarlo al bloque de estilos del componente.
 2. Definir el estilo visual del nuevo álbum y agregarlo al bloque condicional de estilos del componente.
 3. El nuevo repositorio ya trae el array `PROYECTOS` actualizado desde su creación (fue clonado con la versión más reciente).
 4. Crear un pull request en cada repositorio con título `feat: agregar [nombre álbum] a otros proyectos`.
+
+### Prompt para Claude Code
+
+Usar este prompt exacto en Claude Code cada vez que se agrega un nuevo álbum al menú "Otros Proyectos":
+
+---
+
+En la vista `otros-proyectos` del archivo `_app.jsx` de cada repositorio existente, agregar una nueva entrada al array `PROYECTOS`:
+
+```js
+{
+  id: '[id del nuevo álbum]',
+  label: '[nombre visible del álbum]',
+  url: '[url de GitHub Pages]',
+  style: '[nombre del estilo]',
+}
+```
+
+Definir también el estilo visual del nuevo álbum en el bloque de estilos del componente. Cada álbum tiene su propio estilo visual representativo:
+
+* Mundial 2026: `background: linear-gradient(135deg, #e53e3e, #dd6b20, #d69e2e, #38a169, #3182ce, #805ad5)`, texto blanco
+* Qatar 2022: `backgroundColor: '#6B0F1A'`, `border: '2px solid #B8860B'`, texto blanco
+* CWC 2025: `backgroundColor: '#000000'`, `border: '2px solid #B8860B'`, texto dorado (`text-yellow-400`)
+* Rusia 2018: `backgroundColor: '#0E4CAC'`, texto blanco — sin borde especial
+
+Los botones navegan en la misma pestaña: `onClick={() => { window.location.href = proyecto.url; }}`. El álbum actual se excluye automáticamente comparando `proyecto.id` con `albumConfig.id`. Aplicar este cambio en todos los repositorios existentes y crear un pull request en cada uno con título `feat: agregar [nombre álbum] a otros proyectos`.
+
+---
