@@ -675,7 +675,7 @@ export default function PaniniAlbumRUS2018() {
 
               <button onClick={() => { setCurrentTeamIndex(teams.indexOf('ESTADIOS')); setCurrentView('album'); }}
                 className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
-                style={{ backgroundColor: '#D03030', color: '#ffffff' }}>
+                style={{ backgroundColor: '#ffd700', color: '#0f172a', border: '3px solid #b8860b' }}>
                 ESTADIOS
               </button>
 
@@ -1148,7 +1148,7 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
           <path d="M 50 57 C 28 57 10 75 10 120 L 90 120 C 90 75 72 57 50 57 Z" fill={decorColor} />
         </svg>
       )}
-      {isBrillante && (
+      {isBrillante && currentTeam !== 'INTRO' && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
           <path d="M 10 10 L 90 10 L 90 65 Q 90 105 50 118 Q 10 105 10 65 Z" fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
         </svg>
