@@ -675,7 +675,7 @@ export default function PaniniAlbumRUS2018() {
 
               <button onClick={() => { setCurrentTeamIndex(teams.indexOf('ESTADIOS')); setCurrentView('album'); }}
                 className="col-span-2 rounded-2xl p-4 font-black text-2xl sm:text-3xl active:scale-95 transition-transform"
-                style={{ backgroundColor: '#D03030', color: '#ffffff' }}>
+                style={{ backgroundColor: '#ffd700', color: '#0f172a', border: '3px solid #b8860b' }}>
                 ESTADIOS
               </button>
 
@@ -1140,7 +1140,7 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
     <button
       onClick={() => onToggle(sticker.code)}
       style={customStyle}
-      className={`relative rounded-xl sm:rounded-2xl p-2 sm:p-3 w-full flex items-center justify-center text-center transition active:opacity-60 ${isHoriz ? 'aspect-[3/2]' : 'aspect-[2/3]'} ${bgClass} ${borderClass} ${animClass}`}
+      className={`relative overflow-hidden rounded-xl sm:rounded-2xl p-2 sm:p-3 w-full flex items-center justify-center text-center transition active:opacity-60 ${isHoriz ? 'aspect-[3/2]' : 'aspect-[2/3]'} ${bgClass} ${borderClass} ${animClass}`}
     >
       {isPlayerSticker && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
@@ -1150,7 +1150,10 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
       )}
       {isBrillante && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
-          <path d="M 10 10 L 90 10 L 90 65 Q 90 105 50 118 Q 10 105 10 65 Z" fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
+          <path d="M 50 18 C 53 52 56 56 90 60 C 56 64 53 68 50 102 C 47 68 44 64 10 60 C 44 56 47 52 50 18 Z"
+            fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
+          <path d="M 80 14 C 81 27 82 28 94 30 C 82 32 81 33 80 46 C 79 33 78 32 66 30 C 78 28 79 27 80 14 Z"
+            fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
         </svg>
       )}
       <div style={{ position:'relative', zIndex:1 }}>
