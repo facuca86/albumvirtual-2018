@@ -1089,6 +1089,8 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
   const isBrillante    = sticker.type === 'brillante';
   const isPlayerSticker = sticker.type === 'player';
   const isPanini       = sticker.code === 'PANINI';
+  // Un escudo es un brillante de un equipo real (no de secciones INTRO/ESTADIOS/LEGENDS)
+  const isShield       = isBrillante && !albumConfig.specialSections[currentTeam];
 
   const visibleNumber = codeToNumber[sticker.code];
 
@@ -1148,7 +1150,12 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
           <path d="M 50 57 C 28 57 10 75 10 120 L 90 120 C 90 75 72 57 50 57 Z" fill={decorColor} />
         </svg>
       )}
-      {isBrillante && (
+      {isBrillante && isShield && (
+        <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
+          <path d="M 10 10 L 90 10 L 90 65 Q 90 105 50 118 Q 10 105 10 65 Z" fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
+        </svg>
+      )}
+      {isBrillante && !isShield && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
           <path d="M 50 18 C 53 52 56 56 90 60 C 56 64 53 68 50 102 C 47 68 44 64 10 60 C 44 56 47 52 50 18 Z"
             fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
