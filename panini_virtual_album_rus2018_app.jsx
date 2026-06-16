@@ -1089,6 +1089,8 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
   const isBrillante    = sticker.type === 'brillante';
   const isPlayerSticker = sticker.type === 'player';
   const isPanini       = sticker.code === 'PANINI';
+  // Figurita 2 de intro: Trofeo Copa del Mundo (fondo trophy2.png)
+  const isTrophy       = sticker.code === 'INTRO2';
   // Un escudo es un brillante de un equipo real (no de secciones INTRO/ESTADIOS/LEGENDS)
   const isShield       = isBrillante && !albumConfig.specialSections[currentTeam];
 
@@ -1119,7 +1121,16 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
     borderColor: '#ffd700',
   } : undefined;
 
-  const customStyle = paniniStyle || brillanteStyle;
+  // Estilo del trofeo (INTRO2): fondo oscuro azulado cuando no se tiene,
+  // y fondo cálido/dorado cuando ya se completó.
+  const trophyStyle = isTrophy && !sticker.repeated ? {
+    background: sticker.completed
+      ? 'radial-gradient(circle at 50% 42%, #2a1f00, #0a1633 70%, #050b1f 100%)'
+      : 'linear-gradient(135deg, #0a1633, #16213e, #0f3460)',
+    borderColor: '#ffd700',
+  } : undefined;
+
+  const customStyle = paniniStyle || trophyStyle || brillanteStyle;
 
   const animClass = justPasted ? 'sticker-paste' : highlighted ? 'sticker-pulse' : '';
 
@@ -1150,12 +1161,42 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
           <path d="M 50 57 C 28 57 10 75 10 120 L 90 120 C 90 75 72 57 50 57 Z" fill={decorColor} />
         </svg>
       )}
-      {isBrillante && isShield && (
+      {isTrophy && (
+        <>
+          {/* Luz / resplandor detrás del trofeo (solo cuando se tiene) */}
+          {sticker.completed && (
+            <div
+              aria-hidden="true"
+              style={{
+                position: 'absolute', inset: 0, zIndex: 0, pointerEvents: 'none',
+                background: 'radial-gradient(circle at 50% 45%, rgba(255,247,200,0.95) 0%, rgba(255,215,0,0.55) 28%, rgba(255,215,0,0.12) 52%, rgba(255,215,0,0) 70%)',
+              }}
+            />
+          )}
+          <img
+            src="./trophy2.png"
+            alt=""
+            aria-hidden="true"
+            style={{
+              position: 'absolute', top: '50%', left: '50%',
+              transform: 'translate(-50%, -50%)',
+              width: '74%', objectFit: 'contain', zIndex: 1, pointerEvents: 'none',
+              // Con la figurita: sin sombra y a todo color.
+              // Sin la figurita: silueta oscurecida con sombra.
+              filter: sticker.completed
+                ? 'none'
+                : 'grayscale(0.65) brightness(0.5) drop-shadow(0 6px 6px rgba(0,0,0,0.6))',
+              opacity: sticker.completed ? 1 : 0.85,
+            }}
+          />
+        </>
+      )}
+      {isBrillante && !isTrophy && isShield && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
           <path d="M 10 10 L 90 10 L 90 65 Q 90 105 50 118 Q 10 105 10 65 Z" fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
         </svg>
       )}
-      {isBrillante && !isShield && (
+      {isBrillante && !isTrophy && !isShield && (
         <svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style={svgStyle}>
           <path d="M 50 18 C 53 52 56 56 90 60 C 56 64 53 68 50 102 C 47 68 44 64 10 60 C 44 56 47 52 50 18 Z"
             fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
@@ -1163,7 +1204,7 @@ function Sticker({ sticker, onToggle, currentTeam, darkMode = false, justPasted 
             fill={sticker.completed ? '#ffd70099' : '#ffd70033'} />
         </svg>
       )}
-      <div style={{ position:'relative', zIndex:1 }}>
+      <div style={{ position:'relative', zIndex:2 }}>
         <div className={`font-black leading-none text-base sm:text-lg ${
           sticker.repeated ? repeatedCodeClass :
           isBrillante && !sticker.completed ? 'text-yellow-700' :
