@@ -236,6 +236,7 @@ export default function PaniniAlbumRUS2018() {
   const [searchOpen, setSearchOpen]             = useState(false);
   const [searchQuery, setSearchQuery]           = useState('');
   const [progressHistory, setProgressHistory]   = useState([]);
+  const [historyLoaded, setHistoryLoaded]       = useState(false);
   const [showProgressHistory, setShowProgressHistory] = useState(false);
   const [progressMessage, setProgressMessage]   = useState('');
   const isInitialLoad = useRef(true);
@@ -347,10 +348,15 @@ export default function PaniniAlbumRUS2018() {
         }
       } catch (_) {}
 
-      let remoteEntries = null;
+      // remoteEntries en [] (no null) cuando el doc no existe o no tiene `entries`:
+      // eso es un estado de nube confirmado (vacío), no una falla de lectura, así
+      // que las entradas locales sí se deben subir para crear/completar el doc.
+      let remoteEntries = [];
+      let cloudReachable = false;
       try {
         if (progressHistoryDocRef) {
           const snap = await getDoc(progressHistoryDocRef);
+          cloudReachable = true;
           if (snap.exists() && Array.isArray(snap.data()?.entries)) {
             remoteEntries = snap.data().entries;
           }
@@ -359,14 +365,12 @@ export default function PaniniAlbumRUS2018() {
         console.error('Error loading progress history from Firestore:', error);
       }
 
-      if (remoteEntries === null) {
-        setProgressHistory(localEntries.map(normalizeHistoryEntry));
-        return;
-      }
-
       const merged = mergeHistoryEntries(localEntries, remoteEntries);
       setProgressHistory(merged);
       try { localStorage.setItem(LOCAL_STORAGE_HISTORY_KEY, JSON.stringify(merged)); } catch (_) {}
+      setHistoryLoaded(true);
+
+      if (!cloudReachable) return;
 
       const remoteIds = new Set(remoteEntries.map(e => normalizeHistoryEntry(e).id));
       const missingFromCloud = merged.filter(e => !remoteIds.has(e.id));
@@ -543,6 +547,7 @@ export default function PaniniAlbumRUS2018() {
   }, [completed]);
 
   const handleMarkProgress = async () => {
+    if (!historyLoaded) return;
     const now = new Date();
     const entry = {
       id: `${now.getTime()}-${Math.random().toString(36).slice(2, 8)}`,
@@ -1221,8 +1226,8 @@ export default function PaniniAlbumRUS2018() {
             <div className={`mt-4 pt-4 border-t ${darkMode ? 'border-[#0a3070]' : 'border-slate-200'} flex flex-wrap gap-3`}>
               <button onClick={() => { setShowStats(false); setCurrentView('stats-selections'); }}
                 className="bg-[#D03030] text-white px-6 py-3 rounded-2xl font-black">Estadísticas Selecciones</button>
-              <button onClick={handleMarkProgress}
-                className="bg-purple-600 text-white px-6 py-3 rounded-2xl font-black">Marcar Progreso</button>
+              <button onClick={handleMarkProgress} disabled={!historyLoaded}
+                className="bg-purple-600 text-white px-6 py-3 rounded-2xl font-black disabled:opacity-50">Marcar Progreso</button>
               <button onClick={() => { setShowStats(false); setShowProgressHistory(true); }}
                 className="bg-orange-500 text-white px-6 py-3 rounded-2xl font-black">Ver Progreso</button>
               {progressMessage && <span className="w-full text-green-600 font-black">{progressMessage}</span>}
